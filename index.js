@@ -42,6 +42,14 @@ app.get("/getUser",(request, response)=>{
     })
 })
 
+app.get("/getUser/:emailId",(request, response)=>{
+    let sql = `SELECT * from employee where email = "${request.params.emailId}"`
+    DataBase.query(sql, (error, result)=>{
+        if(error) console.log(error.sqlMessage)
+            else response.json(result)
+    })
+})
+
 app.listen(PORT, () => {
   console.log(`server is running pn port http://localhost:${PORT}`);
 });
