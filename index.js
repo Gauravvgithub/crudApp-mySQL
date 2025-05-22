@@ -34,6 +34,14 @@ app.post("/addUser", (request, response) => {
   });
 });
 
+app.get("/getUser",(request, response)=>{
+    let sql = `SELECT * from employee`
+    DataBase.query(sql, (error,result)=>{
+        if(error) console.log(error.sqlMessage)
+            else response.json(result)
+    })
+})
+
 app.listen(PORT, () => {
   console.log(`server is running pn port http://localhost:${PORT}`);
 });
