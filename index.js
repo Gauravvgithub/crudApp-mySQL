@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const path = require("path")
 const DataBase = require("./models/connection");
-const AllUsers = require("./AllUsers")
+const AllUsers = require("./AllUsers");
+const { request } = require("http");
 
 
 const PORT = 3000;
@@ -47,6 +48,14 @@ app.get("/getUser/:emailId",(request, response)=>{
     DataBase.query(sql, (error, result)=>{
         if(error) console.log(error.sqlMessage)
             else response.json(result)
+    })
+})
+
+app.delete("/deleteUser/:emailId", (request,response)=>{
+    let sql = `DELETE from employee where email = "${request.params.emailId}"`
+    DataBase.query(sql, (error, result)=>{
+        if(error) console.log(error.sqlMessage)
+            else response.json("User Data Deleted Successfully",result)
     })
 })
 
